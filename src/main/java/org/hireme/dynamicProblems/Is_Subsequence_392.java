@@ -1,4 +1,4 @@
-package org.hireme.problems;
+package org.hireme.dynamicProblems;
 
 
 public class Is_Subsequence_392 {
