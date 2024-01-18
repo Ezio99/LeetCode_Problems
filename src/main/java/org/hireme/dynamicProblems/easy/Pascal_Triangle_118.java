@@ -1,4 +1,4 @@
-package org.hireme.dynamicProblems;
+package org.hireme.dynamicProblems.easy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
