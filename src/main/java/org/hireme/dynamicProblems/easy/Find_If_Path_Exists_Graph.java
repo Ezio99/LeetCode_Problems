@@ -6,6 +6,7 @@ import java.util.List;
 
 /*
     Union Find
+    Will be faster with array instead of arraylist
  */
 public class Find_If_Path_Exists_Graph {
 
@@ -18,17 +19,25 @@ public class Find_If_Path_Exists_Graph {
             return false;
         }
 
+        if(n==1){
+            return true;
+        }
+
 
         for (int i = 0; i < n; i++) {
             id.add(i);
-            size.add(1);
+               size.add(1);
         }
 
         for (int i = 0; i < edges.length; i++) {
             union(edges[i][0],edges[i][1]);
+
+            if(isConnected(source,destination))
+                return true;
+
         }
 
-        return isConnected(source,destination);
+        return false;
 
 
 
