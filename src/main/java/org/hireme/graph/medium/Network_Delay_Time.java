@@ -1,4 +1,4 @@
-package org.hireme.dynamicProblems.medium;
+package org.hireme.graph.medium;
 
 
 import java.util.*;
