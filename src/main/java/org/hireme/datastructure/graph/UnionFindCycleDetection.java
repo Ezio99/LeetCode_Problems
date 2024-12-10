@@ -1,4 +1,4 @@
-package org.hireme.datastructure;
+package org.hireme.datastructure.graph;
 
 
 
@@ -23,6 +23,8 @@ public class UnionFindCycleDetection {
     }
 
     public static int find(int[] parent, int i) {
+        // Note: Recursion will give slight overhead due to call stack,etc.
+        // Also, kinda bad for readability
         if (parent[i] != i) {
             parent[i] = find(parent, parent[i]); // Path compression
         }

@@ -1,4 +1,4 @@
-package org.hireme.datastructure;
+package org.hireme.datastructure.graph;
 
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package org.hireme.datastructure;
+package org.hireme.datastructure.graph;
 
 import java.util.*;
 
@@ -29,6 +29,10 @@ public class TopologicalSort_DFS {
     public static List<Integer> topoSortDFS(int n, int[][] edges) {
         isContainCycle = false;
         HashMap<Integer, List<Integer>> adjacencyList = new HashMap<>();
+
+        //Keeping visited as int to indicate not only that its been visited but also in which iteration it was visited
+        // If it was visited in an earlier iteration and we came across it now then its not a cycle.
+        // Same iteration means it is a cycle
         int[] visited = new int[n];
         List<Integer> topOrder = new ArrayList<>();
 
@@ -72,6 +76,8 @@ public class TopologicalSort_DFS {
                     return;
                 }
                 if(visited[i]==0){
+                    // Have to do this recursively because we need to add the node which triggers backtracking in the list first
+                    // Add the origin node at the end
                     dfs(adjacencyList,i,vctr,visited,topOrder);
                 }
                 //Cycle detected
@@ -80,7 +86,7 @@ public class TopologicalSort_DFS {
                     //The actual data is still present, or the reference held by the function calling this is not null
 //                    topOrder=null;
 
-
+                    // This works
                     isContainCycle=true;
                     return;
                 }
@@ -90,6 +96,85 @@ public class TopologicalSort_DFS {
         topOrder.add(startNode);
 
 
+    }
+
+    public static List<Integer> topoSortDFSIter(int n, int[][] edges) {
+        isContainCycle = false;
+        HashMap<Integer, List<Integer>> adjacencyList = new HashMap<>();
+        int[] visited = new int[n];
+        List<Integer> topOrder = new ArrayList<>();
+
+        // Build the adjacency list
+        for (int[] edge : edges) {
+            adjacencyList.computeIfAbsent(edge[1], k -> new ArrayList<>()).add(edge[0]);
+        }
+
+        int vctr = 1;
+        for (int i = 0; i < n; i++) {
+            if (visited[i] == 0) {
+                if (!dfsIterative(adjacencyList, i, vctr, visited, topOrder)) {
+                    return new ArrayList<>(); // Return empty if cycle is detected
+                }
+            }
+            if (isContainCycle) {
+                return new ArrayList<>();
+            }
+            vctr += 1;
+        }
+
+        Collections.reverse(topOrder);
+        return topOrder;
+    }
+
+    public static boolean dfsIterative(
+            HashMap<Integer, List<Integer>> adjacencyList,
+            int startNode,
+            int vctr,
+            int[] visited,
+            List<Integer> topOrder
+    ) {
+        Stack<Integer> stack = new Stack<>();
+        // Tracks if a node is being processed
+        //Marks true if node is done being processed, if we come back to it, it means back tracking
+        Stack<Boolean> onStack = new Stack<>();
+
+        stack.push(startNode);
+        onStack.push(false);
+
+        while (!stack.isEmpty()) {
+            int node = stack.peek();
+            boolean isBacktracking = onStack.peek();
+
+            if (isBacktracking) {
+                // only remove node from call stack when backtracking
+                stack.pop();
+                onStack.pop();
+                // Add the node to topOrder while backtracking
+                topOrder.add(node);
+                continue;
+            }
+
+            // Mark the node as visited
+            visited[node] = vctr;
+            onStack.pop();
+            onStack.push(true); // Mark this node as being processed
+
+            // Traverse neighbors
+            // If it has no neighbours, it gets processed again
+            List<Integer> neighbors = adjacencyList.getOrDefault(node, new ArrayList<>());
+            for (Integer neighbor : neighbors) {
+                if (visited[neighbor] == 0) {
+                    stack.push(neighbor);
+                    onStack.push(false);
+                } else if (visited[neighbor] == vctr) {
+                    // Cycle detected
+                    isContainCycle = true;
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
@@ -111,7 +196,7 @@ public class TopologicalSort_DFS {
             int[][] dependencies = testCase.dependencies;
 
             System.out.println("Test Case " + (i + 1) + ":");
-            List<Integer> result = topoSortDFS(n, dependencies); // Call your solution method
+            List<Integer> result = topoSortDFSIter(n, dependencies); // Call your solution method
             System.out.println(result);
         }
     }
