@@ -25,6 +25,7 @@ public class TopologicalSort_Kahn {
      */
 
     public static List<Integer> topoSortKahn(int n, int[][] edges) {
+        //Has indegrees of nodes
         int[] nodes = new int[n];
         Queue<Integer> queue = new LinkedList<>();
         HashMap<Integer, List<Integer>> adjacencyList = new HashMap<>();

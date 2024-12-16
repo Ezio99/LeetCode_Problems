@@ -76,7 +76,6 @@ public class TopologicalSort_DFS {
                     return;
                 }
                 if(visited[i]==0){
-                    // Have to do this recursively because we need to add the node which triggers backtracking in the list first
                     // Add the origin node at the end
                     dfs(adjacencyList,i,vctr,visited,topOrder);
                 }
