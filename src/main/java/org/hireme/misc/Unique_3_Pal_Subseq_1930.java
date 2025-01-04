@@ -25,7 +25,8 @@ public class Unique_3_Pal_Subseq_1930 {
         }
 
         int[] currentIndices;
-        int mask;
+        int mask=0,pos;
+        int allBitsSet = (1 << 26) - 1;
         for (Character ch : characterMap.keySet()) {
             currentIndices = characterMap.get(ch);
             if (currentIndices[1] == -1 || currentIndices[1] - currentIndices[0] == 1) {
@@ -33,12 +34,15 @@ public class Unique_3_Pal_Subseq_1930 {
             }
             mask = 0;
             for (int i = currentIndices[0] + 1; i < currentIndices[1]; i++) {
-                int asciiCode = s.charAt(i);
-                int pos = asciiCode - 97;
+                pos = s.charAt(i) - 97;
                 if ((mask & (1 << pos)) == 0) {
                     mask = mask | 1 << pos;
                     ctr++;
+                    //Do this or set a counter which goes up in the above if and break when it hits 26
+                } else if (mask == allBitsSet) {
+                    break;
                 }
+
             }
 
         }
