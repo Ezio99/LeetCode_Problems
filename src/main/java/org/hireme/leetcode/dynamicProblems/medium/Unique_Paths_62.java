@@ -23,8 +23,8 @@ public class Unique_Paths_62 {
 
     }
 
+    //In a bottom up approach we only keep store the thing required to solve the next sub-problem
     private static int bottomUpApproach(int m, int n) {
-
         int[] previousRow = new int[n];
         for (int i = m - 1; i >= 0; i--) {
             int[] currentRow = new int[n];
