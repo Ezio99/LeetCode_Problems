@@ -1,4 +1,5 @@
-package org.hireme.misc;
+package org.hireme.leetcode.bitmanipulation;
+
 
 public class Count_Vowel_Strings_2559 {
     public static int[] vowelStrings(String[] words, int[][] queries) {
@@ -28,16 +29,6 @@ public class Count_Vowel_Strings_2559 {
         for (int[] query : queries) {
             int start = query[0];
             int end = query[1];
-//            if (start == end) {
-//                if (start == 0) {
-//                    result[rctr] = isVowelWord[start];
-//                } else {
-//                    result[rctr] = isVowelWord[start - 1] == isVowelWord[start] ? 0 : 1;
-//                }
-//            } else {
-//                result[rctr] = start == 0 ? isVowelWord[end] : isVowelWord[end] - isVowelWord[start - 1];
-//            }
-
             if (start == 0) {
                 result[rctr] = isVowelWord[end];
             } else {

@@ -1,6 +1,4 @@
-package org.hireme.misc;
-
-import java.util.*;
+package org.hireme.leetcode.bitmanipulation;
 
 
 /*
@@ -11,29 +9,36 @@ import java.util.*;
  */
 public class Unique_3_Pal_Subseq_1930 {
     public static int countPalindromicSubsequence(String s) {
-        HashMap<Character, int[]> characterMap = new HashMap<>();
+        int[][] bounds = new int[26][2];
+
+        for (int i = 0; i < 26; i++) {
+            bounds[i][0] = -1;
+            bounds[i][1] = -1;
+        }
         int ctr = 0;
 
         for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            if (characterMap.get(ch) == null) {
-                characterMap.put(ch, new int[]{i, -1});
+            int pos = s.charAt(i) -97;
+            if (bounds[pos][0] == -1) {
+                bounds[pos][0]=i;
             } else {
-                characterMap.get(ch)[1] = i;
+                bounds[pos][1]=i;
             }
 
         }
 
-        int[] currentIndices;
+
         int mask=0,pos;
+        int start,end;
         int allBitsSet = (1 << 26) - 1;
-        for (Character ch : characterMap.keySet()) {
-            currentIndices = characterMap.get(ch);
-            if (currentIndices[1] == -1 || currentIndices[1] - currentIndices[0] == 1) {
+        for (int[] bound : bounds) {
+            start = bound[0];
+            end = bound[1];
+            if (end == -1 || start - end == 1) {
                 continue;
             }
             mask = 0;
-            for (int i = currentIndices[0] + 1; i < currentIndices[1]; i++) {
+            for (int i = start + 1; i < end; i++) {
                 pos = s.charAt(i) - 97;
                 if ((mask & (1 << pos)) == 0) {
                     mask = mask | 1 << pos;

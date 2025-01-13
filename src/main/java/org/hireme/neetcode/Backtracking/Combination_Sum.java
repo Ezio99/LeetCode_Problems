@@ -14,6 +14,9 @@ public class Combination_Sum {
         return result;
     }
 
+    //Think of it this way with each number we have to choose to either add itself to it or another number to it
+    //until the sum is equal to target or bigger than it. If it is bigger we can return from there and if its equal we also add it to the result
+    //
     private static void helper(int i, int[] nums, int target, List<List<Integer>> result, List<Integer> currentCombination) {
         if (target == 0) {
             result.add(new ArrayList<>(currentCombination));
