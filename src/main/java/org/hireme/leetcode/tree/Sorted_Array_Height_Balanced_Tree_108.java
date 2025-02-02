@@ -2,21 +2,20 @@ package org.hireme.leetcode.tree;
 
 public class Sorted_Array_Height_Balanced_Tree_108 {
     public static TreeNode sortedArrayToBST(int[] nums) {
-        return  helper(nums, 0, nums.length - 1);
+        return helper(nums, 0, nums.length - 1);
     }
 
     private static TreeNode helper(int[] nums, int l, int r) {
-        if(l>r){
+        if (l > r) {
             return null;
-        }
-        else if(l==r){
+        } else if (l == r) {
             return new TreeNode(nums[l]);
         }
         int rootIndex = (r + l) / 2;
         TreeNode node = new TreeNode(nums[rootIndex]);
 
-        node.left = helper(nums,l,rootIndex-1);
-        node.right = helper(nums,rootIndex+1,r);
+        node.left = helper(nums, l, rootIndex - 1);
+        node.right = helper(nums, rootIndex + 1, r);
         return node;
     }
 

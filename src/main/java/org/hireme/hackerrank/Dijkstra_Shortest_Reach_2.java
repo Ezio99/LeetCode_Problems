@@ -13,7 +13,7 @@ public class Dijkstra_Shortest_Reach_2 {
             dist.add(-1);
         }
 
-        dist.set(s-1, 0);
+        dist.set(s - 1, 0);
 
         for (List<Integer> edge : edges) {
             adjacencyMap.computeIfAbsent(edge.get(0) - 1, k -> new ArrayList<>()).add(new int[]{edge.get(1) - 1, edge.get(2)});
@@ -27,11 +27,7 @@ public class Dijkstra_Shortest_Reach_2 {
             }
         });
 
-//        List<Integer> first = new ArrayList<>();
-//        first.add(s-1);
-//        first.add(0);
-
-        pq.offer(new int[]{s-1,0});
+        pq.offer(new int[]{s - 1, 0});
 
         while (!pq.isEmpty()) {
             int[] curr = pq.poll();
@@ -39,13 +35,13 @@ public class Dijkstra_Shortest_Reach_2 {
             if (visited[curr[0]]) {
                 continue;
             }
-            visited[curr[0]] =  true;
+            visited[curr[0]] = true;
 
             if (dist.get(curr[0]) != -1 && dist.get(curr[0]) < curr[1]) {
                 continue;
             }
 
-            if(adjacencyMap.get(curr[0])==null){
+            if (adjacencyMap.get(curr[0]) == null) {
                 continue;
             }
 
@@ -67,7 +63,7 @@ public class Dijkstra_Shortest_Reach_2 {
             }
         }
 
-        dist.remove(s-1);
+        dist.remove(s - 1);
 //        List<Integer> result = new ArrayList<>();
 //        for (int i = 0; i < n; i++) {
 //            if(i==s-1){

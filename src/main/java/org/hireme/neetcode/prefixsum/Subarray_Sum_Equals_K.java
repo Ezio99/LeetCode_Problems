@@ -2,6 +2,7 @@ package org.hireme.neetcode.prefixsum;
 
 import java.util.HashMap;
 
+//Prefix sum and hashmap combined usage
 public class Subarray_Sum_Equals_K {
 
     public static int subarraySumBruteForce(int[] nums, int k) {
