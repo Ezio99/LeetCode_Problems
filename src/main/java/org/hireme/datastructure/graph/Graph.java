@@ -33,6 +33,7 @@ public class Graph {
 
     public int[] dijkstra(int source) {
         int[] dist = new int[n];
+        int[] prev = new int[n];
 
         Arrays.fill(dist, Integer.MAX_VALUE);
 
@@ -77,6 +78,7 @@ public class Graph {
                     // so that in the future if we are processing some other node which also has a path to that node
                     // we dont add it to the PQ because its guaranteed to be longer anyway
                     dist[neigbhour.vertex] = newDist;
+                    prev[neigbhour.vertex] = currentNode.vertex;
                     priorityQueue.add(new Node(neigbhour.vertex, newDist));
                 }
             }
