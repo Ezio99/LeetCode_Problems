@@ -4,6 +4,23 @@ package org.hireme.datastructure.graph;
 
 public class UnionFindCycleDetection {
     public static void main(String[] args) {
+
+        int a=10;
+        System.out.println(a);
+        System.out.println(Integer.toBinaryString(a));
+        System.out.println(a<<3);
+        System.out.println(Integer.toBinaryString(a<<3));
+        System.out.println(Integer.toBinaryString(a<<3 & ~(1<<4)) );
+
+        int number=0b0101;
+        int reverse = 0;
+        for (int i = 0; i < 32; i++) {
+            reverse <<= 1;
+            reverse |= (number & 1);
+            number >>= 1;
+        }
+        System.out.println("Reversed bits: " + Integer.toBinaryString(reverse));
+
         int numOfNodes = 5;
 
         // Define the edges of the graph

@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Partition_Label {
 
+
     public List<Integer> partitionLabels(String s) {
         int[] lastIndexOfCharacter = new int[26];
 

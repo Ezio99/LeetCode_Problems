@@ -35,9 +35,6 @@ public class Min_Cost_To_Connect_Points {
             }
 
             for (int i = 0; i < n; i++) {
-                if (currentNode[0] == i) {
-                    continue;
-                }
                 if (!visited[i]) {
                     pq.add(new int[]{i, getCost(points[i], points[currentNode[0]])});
                 }
