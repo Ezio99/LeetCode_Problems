@@ -10,6 +10,9 @@ public class Kadane_Algorithm {
         int currSum = nums[0];
         int globalMax = nums[0];
         for (int i = 1; i < nums.length; i++) {
+            //If nums[i] is positive great, you will always get a bigger number adding that to cursum
+            // But if it's negative but adding it still didnt make the current sum negative, then we can still use the leftover for the
+            // next element. If the negative is so big it makes curr sum -ve, it will harm the next sum so better to just discard it
             currSum = Math.max(nums[i], currSum + nums[i]);
             globalMax = Math.max(currSum, globalMax);
         }
