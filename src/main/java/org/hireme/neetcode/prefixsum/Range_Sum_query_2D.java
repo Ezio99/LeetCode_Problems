@@ -1,30 +1,49 @@
 package org.hireme.neetcode.prefixsum;
 
+import java.util.Arrays;
+
 public class Range_Sum_query_2D {
 
     static class NumMatrix {
 
-        int[][] prefixSumArray;
+        int[][] prefixAreaMatrix;
 
         public NumMatrix(int[][] matrix) {
-            int numOfRows = matrix.length, numOfCols = matrix[0].length;
-            prefixSumArray = new int[numOfRows][numOfCols];
+            int numRows = matrix.length, numCols = matrix[0].length;
+            prefixAreaMatrix = new int[numRows+1][numCols+1];
 
-            int aboveValue, leftValue;
-
-            for (int i = 0; i < numOfRows; i++) {
-                for (int j = 0; j < numOfCols; j++) {
-                    aboveValue = i == 0 ? 0 : prefixSumArray[i - 1][j];
-                    leftValue = j == 0 ? 0 : prefixSumArray[i][j - 1];
-
-                    prefixSumArray[i][j] = matrix[i][j] + aboveValue + leftValue;
-                }
+            int sum = 0;
+            for (int j = 0; j < numCols; j++) {
+                sum += matrix[0][j];
+                prefixAreaMatrix[0][j] = sum;
             }
 
+            System.out.println(Arrays.toString(prefixAreaMatrix[0]));
+
+            for (int i = 1; i < numRows; i++) {
+                sum = 0; // Can be done by looking back at matrix but simpler this way
+                for (int j = 0; j < numCols; j++) {
+                    sum += matrix[i][j];
+                    prefixAreaMatrix[i][j] += sum + prefixAreaMatrix[i - 1][j];
+                }
+                System.out.println(Arrays.toString(prefixAreaMatrix[i]));
+
+            }
         }
 
         public int sumRegion(int row1, int col1, int row2, int col2) {
-            return prefixSumArray[row2][col2] - prefixSumArray[row1][col2] - prefixSumArray[row2][col1];
+//            int topRight = 0, bottomLeft = 0, topLeft = 0;
+//            if (row1 - 1 >= 0) {
+//                topRight = prefixAreaMatrix[row1 - 1][col2];
+//            }
+//            if (col1 - 1 >= 0) {
+//                bottomLeft = prefixAreaMatrix[row2][col1 - 1];
+//            }
+//            if (row1 - 1 >= 0 && col1 - 1 >= 0) {
+//                topLeft = prefixAreaMatrix[row1 - 1][col1 - 1];
+//            }
+
+            return prefixAreaMatrix[row2][col2] - prefixAreaMatrix[row1 - 1][col2] - prefixAreaMatrix[row2][col1 - 1] + prefixAreaMatrix[row1 - 1][col1 - 1];
         }
 
     }

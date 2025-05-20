@@ -5,6 +5,7 @@ public class BinarySearch {
     public int search(int[] nums, int target) {
         int l = 0, r = nums.length - 1;
 //        int mid = (r+l) / 2; Could give issues with overflow
+//        l (offset) + (r-l)/2
         int mid = l + (r - l) / 2;
         while (l <= r) {
             if (nums[mid] == target) {
