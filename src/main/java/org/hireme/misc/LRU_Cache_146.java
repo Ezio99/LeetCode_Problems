@@ -40,6 +40,7 @@ public class LRU_Cache_146 {
     }
 
 
+//Custom implementation of Linked Hash Map
     static class CustomLinkedHashMap {
 
         //Node for double linked list
@@ -54,6 +55,8 @@ public class LRU_Cache_146 {
                 this.val = val;
             }
 
+            LinkedNode(){}
+
 
         }
 
@@ -63,9 +66,9 @@ public class LRU_Cache_146 {
         final Integer HEAD_KEY = -1;
 
         public CustomLinkedHashMap() {
-            head = new LinkedNode(HEAD_KEY, -1);
+            //Head is a dummy node
+            head = new LinkedNode();
             mapStore = new HashMap<>();
-            mapStore.put(HEAD_KEY, head);
             tail = head;
         }
 
@@ -117,7 +120,7 @@ public class LRU_Cache_146 {
 
         public Integer size() {
             //Removing head count
-            return this.mapStore.size() - 1;
+            return this.mapStore.size();
         }
 
         public Integer removeFirst() {
@@ -161,5 +164,17 @@ public class LRU_Cache_146 {
         System.out.println(obj.get(3));
         System.out.println(obj.get(4));
         System.out.println(obj.get(5));
+
+        /**
+         * 4
+         * 3
+         * 2
+         * -1
+         * -1
+         * 2
+         * 3
+         * -1
+         * 5
+         */
     }
 }
