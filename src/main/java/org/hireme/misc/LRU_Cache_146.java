@@ -65,6 +65,8 @@ public class LRU_Cache_146 {
         LinkedNode tail;
         final Integer HEAD_KEY = -1;
 
+//    Improvement make tail as dummy node as well, will reduce the number of edge cases to handle
+//    Handle capacity in map as well
         public CustomLinkedHashMap() {
             //Head is a dummy node
             head = new LinkedNode();
@@ -165,16 +167,6 @@ public class LRU_Cache_146 {
         System.out.println(obj.get(4));
         System.out.println(obj.get(5));
 
-        /**
-         * 4
-         * 3
-         * 2
-         * -1
-         * -1
-         * 2
-         * 3
-         * -1
-         * 5
-         */
+
     }
 }
