@@ -1,7 +1,11 @@
 package org.hireme.misc;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class No_ways_split_array_2270 {
     public static int waysToSplitArray(int[] nums) {
+
         long sum = 0;
 
         for (int i : nums) {

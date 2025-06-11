@@ -1,43 +1,51 @@
 package org.hireme.neetcode.DynamicProgramming;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class House_Robber {
 
-    public static int rob(int[] nums) {
-        HashMap<Integer, Integer> cache = new HashMap<>();
-        cache.put(nums.length - 1, nums[nums.length - 1]);
-        robHelper(0, nums, 0, cache);
-        return cache.get(0);
+    public int rob1(int[] nums) {
+        int[] cache = new int[nums.length];
+        Arrays.fill(cache, -1);
+        return dfs_1(nums, 0, cache);
     }
 
-    public static int robHelper(int i, int[] nums, int robbedSoFar, HashMap<Integer, Integer> cache) {
+    private static int bottomUp_1(int[] nums) {
+        int n = nums.length;
+        if (n == 1) {
+            return nums[0];
+        }
+        int[] dp = new int[n];
+        //Initializing trivial cases dp so that I dont have to handle the cases in loop
+        dp[n - 1] = nums[n - 1];
+        //max(keep + best of next to next neighbour (out of bounds here),skip case)
+        dp[n - 2] = Math.max(nums[n - 2], dp[n - 1]);
+
+        for (int i = n - 3; i >= 0; i--) {
+            dp[i] = Math.max(nums[i] + dp[i - 2], dp[i - 1]);
+        }
+
+        return dp[0];
+    }
+
+    public int dfs_1(int[] nums, int i, int[] cache) {
         if (i >= nums.length) {
-            return robbedSoFar;
-        } else if (cache.get(i) != null) {
-            return cache.get(i);
+            return 0;
+        }
+        if (cache[i] != -1) {
+            return cache[i];
         }
 
-        cache.put(i, Math.max(nums[i] + robHelper(i + 2, nums, robbedSoFar, cache),
-                robHelper(i + 1, nums, robbedSoFar, cache)));
-        return cache.get(i);
-    }
+        int skip = dfs_1(nums, i + 1, cache);
 
-    public static int robIter(int[] nums) {
-        int n=nums.length;
-        int prev1=nums[0];
-        int prev2=0;
-        for(int i=1;i<n;i++){
-            int take=nums[i]+prev2;
-            int ntake=prev1;
-            prev2=prev1;
-            prev1=Math.max(take,ntake);
-        }
-        return prev1;
+        int keep = nums[i] + dfs_1(nums, i + 2, cache);
+
+        return cache[i] = Math.max(skip, keep);
     }
 
     public static void main(String[] args) {
-        System.out.println(robIter(new int[]{1, 1, 3, 3}));
-        System.out.println(robIter(new int[]{2, 9, 8, 3, 6}));
+        System.out.println(bottomUp_1(new int[]{1, 1, 3, 3}));
+        System.out.println(bottomUp_1(new int[]{2, 9, 8, 3, 6}));
     }
 }

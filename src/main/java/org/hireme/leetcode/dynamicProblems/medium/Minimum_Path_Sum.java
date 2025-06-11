@@ -24,27 +24,49 @@ public class Minimum_Path_Sum {
     // I can pre-compute the values of the top row and left most column as there is only 1 path for them
     //Then for each remaining cell I see what's the minimum for it in the up and left cells
     // The answer at the bottom right will be my answer
-    private int bottomUp(int[][] grid) {
-        int n = grid.length, m = grid[0].length;
+//    private int bottomUp(int[][] grid) {
+//        int n = grid.length, m = grid[0].length;
+//
+//        int[] prev = new int[m];
+//        prev[0] = grid[0][0];
+//
+//        for (int i = 1; i < m; i++) {
+//            prev[i] = grid[0][i] + prev[i - 1];
+//        }
+//
+//        for (int i = 1; i < n; i++) {
+//            int[] dp = new int[m];
+//            dp[0] = prev[0] + grid[i][0];
+//            for (int j = 1; j < m; j++) {
+//                dp[j] = grid[i][j] + Math.min(dp[j - 1], prev[j]);
+//            }
+//            prev = dp;
+//        }
+//
+//        return prev[m - 1];
+//
+//    }
 
-        int[] prev = new int[m];
-        prev[0] = grid[0][0];
+    public int bottomUp(int[][] grid){
+        int numCols = grid[0].length,numRows = grid.length;
+        int[] dp = new int[numCols];
+        int[] prev = new int[numCols];
 
-        for (int i = 1; i < m; i++) {
-            prev[i] = grid[0][i] + prev[i - 1];
+        prev[numCols-1]=grid[numRows-1][numCols-1];
+        for(int i=numCols-2;i>=0;i--){
+            prev[i]=grid[numRows-1][i] + prev[i+1];
         }
 
-        for (int i = 1; i < n; i++) {
-            int[] dp = new int[m];
-            dp[0] = prev[0] + grid[i][0];
-            for (int j = 1; j < m; j++) {
-                dp[j] = grid[i][j] + Math.min(dp[j - 1], prev[j]);
+        for(int i=numRows-2;i>=0;i--){
+            dp[numCols-1] = grid[i][numCols-1]+prev[numCols-1];
+            for(int j=numCols-2;j>=0;j--){
+                dp[j] = grid[i][j] + Math.min(dp[j+1],prev[j]);
             }
-            prev = dp;
+            prev=dp;
+            dp = new int[numCols];
         }
 
-        return prev[m - 1];
-
+        return prev[0];
     }
 
     private int topDownHelper(int i, int j, int[][] grid, int[][] cache) {

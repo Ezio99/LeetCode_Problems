@@ -36,12 +36,13 @@ public class Subarray_Sum_Equals_K {
 
         for (int num : nums) {
             sum += num;
-            current = sum - k;
-            if (prefixSumFrequency.get(current) != null) {
-                result += prefixSumFrequency.get(current);
+            // We want to find how many times (sum - k) has occurred
+            int target = sum - k;
+            if (prefixSumFrequency.containsKey(target)) {
+                result += prefixSumFrequency.get(target);
             }
+            // Record the current prefix sum
             prefixSumFrequency.merge(sum, 1, Integer::sum);
-
         }
         return result;
     }

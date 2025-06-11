@@ -43,32 +43,32 @@ public class Dijkstra {
         // Placeholder implementation
         HashMap<Integer, List<Edge>> adjacencyList = new HashMap<>();
         int[] dist = new int[n];
-        Arrays.fill(dist,Integer.MAX_VALUE);
-        dist[source]=0;
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[source] = 0;
         boolean[] visited = new boolean[n];
 
 
-        for(int[] edge: edges){
-            adjacencyList.computeIfAbsent(edge[0],k -> new ArrayList<>()).add(new Edge(edge[1],edge[2]));
+        for (int[] edge : edges) {
+            adjacencyList.computeIfAbsent(edge[0], k -> new ArrayList<>()).add(new Edge(edge[1], edge[2]));
         }
 
         PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
-                return o1[1]-o2[1];
+                return o1[1] - o2[1];
             }
         });
-        pq.offer(new int[]{source,0});
+        pq.offer(new int[]{source, 0});
 
         //current[0]=node being processed
         //current[1]=Proposed Distance from start
         // dist[index]= Also proposed Distance from start but once we visit the node, it becomes final
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             int[] current = pq.poll();
             int currentNode = current[0];
             int currentDist = current[1];
 
-            if(visited[currentNode]){
+            if (visited[currentNode]) {
                 continue;
             }
 
@@ -79,29 +79,25 @@ public class Dijkstra {
 //                continue;
 //            }
 
-            visited[currentNode]=true;
+            visited[currentNode] = true;
 
-            if(currentNode==destination){
+            if (currentNode == destination) {
                 return dist[destination];
             }
 
             List<Edge> outConnections = adjacencyList.get(currentNode);
             if (outConnections != null) {
-                for (Edge e: outConnections){
+                for (Edge e : outConnections) {
                     int newDist = currentDist + e.weight;
-                    if(!visited[e.to] && newDist<dist[e.to]){
+                    if (!visited[e.to] && newDist < dist[e.to]) {
                         dist[e.to] = newDist;
-                        pq.offer(new int[]{e.to,newDist});
+                        pq.offer(new int[]{e.to, newDist});
                     }
                 }
             }
 
 
         }
-
-
-
-
 
 
         return -1;

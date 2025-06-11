@@ -30,6 +30,8 @@ public class Longest_Substring_Without_Repeat {
 
         for (int r = 0; r < s.length(); r++) {
             if (map.containsKey(s.charAt(r))) {
+//                s = "abba", when we encounter second a l will be at 2 due to handling earlier b duplicate
+//                If we only do map.get(s.charAt(r)) + 1, we will set l=1 which is wrong
                 l = Math.max(map.get(s.charAt(r)) + 1, l);
             }
 

@@ -1,7 +1,5 @@
-package org.hireme.misc;
+package org.hireme.neetcode.heap;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Find_Kth_Largest_Element {
